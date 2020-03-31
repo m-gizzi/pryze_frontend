@@ -24,8 +24,22 @@ export default class PaymentPage extends Component {
         return
       }
       this.setState({ errorMessages: [] })
-      alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
-    //   API.post('/payments', data: { nonce: nonce, token: buyerVerificationToken })
+    //   alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
+      const reqObj = {
+          method: "POST",
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            nonce: nonce,
+            token: buyerVerificationToken,
+            amount: (this.props.amountToCharge) * 100
+          })
+      }
+      fetch("http://localhost:3000/payments", reqObj)
+      .then(resp => resp.json())
+      .then(payment => console.log(payment))
+      .catch(error => console.log(error))
     }
   
     createVerificationDetails() {
@@ -74,7 +88,7 @@ export default class PaymentPage extends Component {
                 </fieldset>
 
                 <CreditCardSubmitButton>
-                    Pay $1.00
+                    Pay ${this.props.amountToCharge}
                 </CreditCardSubmitButton>
           </SquarePaymentForm>
   
