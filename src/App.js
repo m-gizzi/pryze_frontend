@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PaymentPage from './components/PaymentPage'
 import LandingPage from './components/LandingPage';
+import SignInPage from './components/SignInPage';
 
 class App extends Component {
   constructor() {
@@ -22,6 +23,7 @@ class App extends Component {
       <div className="App">
         <div className="center-container">
           <LandingPage handleAmountForm={this.handleAmountForm} amountToCharge={this.state.amountToCharge} />
+          <SignInPage />
           <PaymentPage amountToCharge={this.state.amountToCharge} />
         </div>
       </div>
