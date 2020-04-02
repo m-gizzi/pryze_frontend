@@ -23,6 +23,34 @@ export default class LoginForm extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
+        let respStatus
+        const reqObj = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state.user)
+          }
+        fetch('http://localhost:3000/auth/login', reqObj)
+        .then(resp => {
+            respStatus = resp.status
+            return resp.json()
+        })
+        .then(resp => {
+            if (respStatus === 202) {
+                this.props.handleCurrentUser(resp.user)
+                localStorage.setItem("pryzeToken", resp.token)
+                this.setState({
+                    error: []
+                })
+            } else if (respStatus === 401) {
+                this.setState({
+                    error: [
+                        resp.message
+                    ]
+                })
+            }
+        })
     }
 
     renderErrors = () => {

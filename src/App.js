@@ -10,7 +10,7 @@ class App extends Component {
     super()
     this.state = {
       amountToCharge: 0.01,
-      currentUser: ''
+      currentUser: {}
     }
   }
 
@@ -45,7 +45,7 @@ class App extends Component {
   handleLogOut = () => {
     localStorage.removeItem('pryzeToken')
     this.setState({
-      currentUser: ''
+      currentUser: {}
     })
   }
 
@@ -58,7 +58,7 @@ class App extends Component {
           <PaymentPage amountToCharge={this.state.amountToCharge} />
           <p>Current User: {this.state.currentUser.username}</p>
           <Logout handleLogOut={this.handleLogOut}/>
-          <LoginForm />
+          <LoginForm handleCurrentUser={this.handleCurrentUser}/>
         </div>
       </div>
     );

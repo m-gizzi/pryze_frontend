@@ -41,7 +41,6 @@ export default class SignInPage extends Component {
                 return resp.json()
             })
             .then(resp => {
-                console.log(resp)
                 this.setState({
                     error: []
                 })
