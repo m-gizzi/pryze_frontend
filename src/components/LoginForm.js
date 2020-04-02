@@ -41,8 +41,13 @@ export default class LoginForm extends Component {
                 this.props.handleCurrentUser(resp.user)
                 localStorage.setItem("pryzeToken", resp.token)
                 this.setState({
+                    user: {
+                        username: '',
+                        password: ''
+                    },
                     error: []
                 })
+                document.getElementById('login-form').reset()
             } else if (respStatus === 401) {
                 this.setState({
                     error: [
@@ -60,15 +65,20 @@ export default class LoginForm extends Component {
     }
 
     render = () => {
+        console.log(this.state)
         return (
-            <form onSubmit={this.handleSubmit}>
-                <label htmlFor='login-username'>Username</label>
-                <input type='text' required onChange={this.handleInputChange} id='login-username' name='username' value={this.state.username}/><br/>
-                <label htmlFor='login-password'>Password</label>
-                <input type='password' required onChange={this.handleInputChange} id='login-password' name='password' value={this.state.password}/><br/>
-                <input type='submit' value='Log In' /><br />
-                <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
-            </form>
+            <div>
+                <form id='login-form' onSubmit={this.handleSubmit}>
+                    <label htmlFor='login-username'>Username</label>
+                    <input type='text' required onChange={this.handleInputChange} id='login-username' name='username' value={this.state.username}/><br/>
+                    <label htmlFor='login-password'>Password</label>
+                    <input type='password' required onChange={this.handleInputChange} id='login-password' name='password' value={this.state.password}/><br/>
+                    <input type='submit' value='Log In' /><br />
+                    <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
+                </form>
+                <p>Don't have an account yet?  Sign up instead!</p>
+                <button style={{display:this.props.currentUser ? 'none' : 'initial'}} type='button' >Sign Up</button>
+            </div>
         )
     }
 }
