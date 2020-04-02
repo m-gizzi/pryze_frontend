@@ -24,7 +24,7 @@ export default class PaymentPage extends Component {
         return
       }
       this.setState({ errorMessages: [] })
-    //   alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
+      alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
       const reqObj = {
           method: "POST",
           headers: {
