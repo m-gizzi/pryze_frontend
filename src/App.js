@@ -58,9 +58,9 @@ class App extends Component {
             <h1>Pryze</h1>
             <p>{this.state.currentUser ? `Logged in as: ${this.state.currentUser.username}` : "Continue as a guest, or login to see your play history and save your payment options for convenience."}</p>
             <Route exact path="/" render={routerProps => <HomePage {...routerProps} handleAmountForm={this.handleAmountForm} amountToCharge={this.state.amountToCharge} currentUser={this.state.currentUser} handleLogOut={this.handleLogOut}/>} />
-            <Route exact path="/login" render={routerProps => <LoginForm {...routerProps} handleCurrentUser={this.handleCurrentUser}/>} />
-            {/* <SignInPage handleCurrentUser={this.handleCurrentUser} />
-            <PaymentPage amountToCharge={this.state.amountToCharge} /> */}
+            <Route exact path="/login" render={routerProps => <LoginForm {...routerProps} handleCurrentUser={this.handleCurrentUser} currentUser={this.state.currentUser}/>} />
+            <Route exact path='/signup' render={routerProps => <SignInPage {...routerProps} handleCurrentUser={this.handleCurrentUser} currentUser={this.state.currentUser}/>} />
+            {/* <PaymentPage amountToCharge={this.state.amountToCharge} /> */}
             {/* <LoginLogout handleLogOut={this.handleLogOut} currentUser={this.state.currentUser}/> */}
             {/* <LoginForm handleCurrentUser={this.handleCurrentUser}/> */}
           </div>

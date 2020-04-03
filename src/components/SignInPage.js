@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 export default class SignInPage extends Component {
     constructor() {
@@ -68,6 +69,10 @@ export default class SignInPage extends Component {
         }
     }
 
+    handleBack = () => {
+        this.props.history.push('/')
+    }
+
     renderErrors = () => {
         return this.state.error.map((error, index) => {
             return <p key={index} >{error}</p>
@@ -75,21 +80,28 @@ export default class SignInPage extends Component {
     }
 
     render = () => {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label htmlFor='sign-up-username'>Username</label>
-                <input type='text' required onChange={this.handleInputChange} id='sign-up-username' name='username' value={this.state.username}/><br/>
-                <label htmlFor='full-name'>Full Name</label>
-                <input type='text' required onChange={this.handleInputChange} id='full-name' name='full_name' value={this.state.full_name}/><br/>
-                <label htmlFor='sign-up-password'>Password</label>
-                <input type='password' required onChange={this.handleInputChange} id='sign-up-password' name='password' value={this.state.password}/><br/>
-                <label htmlFor='password-confirm'>Confirm Password</label>
-                <input type='password' required onChange={this.handleInputChange} id='password-confirm' name='password_confirmation' value={this.state.password_confirmation}/><br/>
-                <label htmlFor='email'>Email</label>
-                <input type='text' required onChange={this.handleInputChange} id='email' name='email' value={this.state.email}/><br/>
-                <input type='submit' value='Sign Up' /><br />
-                <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
-            </form>
-        )
+        if (this.props.currentUser) {
+            return <Redirect to='/' />
+        } else {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label htmlFor='sign-up-username'>Username</label>
+                    <input type='text' required onChange={this.handleInputChange} id='sign-up-username' name='username' value={this.state.username}/><br/>
+                    <label htmlFor='full-name'>Full Name</label>
+                    <input type='text' required onChange={this.handleInputChange} id='full-name' name='full_name' value={this.state.full_name}/><br/>
+                    <label htmlFor='sign-up-password'>Password</label>
+                    <input type='password' required onChange={this.handleInputChange} id='sign-up-password' name='password' value={this.state.password}/><br/>
+                    <label htmlFor='password-confirm'>Confirm Password</label>
+                    <input type='password' required onChange={this.handleInputChange} id='password-confirm' name='password_confirmation' value={this.state.password_confirmation}/><br/>
+                    <label htmlFor='email'>Email</label>
+                    <input type='text' required onChange={this.handleInputChange} id='email' name='email' value={this.state.email}/><br/>
+                    <input type='submit' value='Create Account' /><br />
+                    <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
+                    <p>Already have an account?  Log in instead!</p>
+                    <a href='/login'><button type='button' >Log In</button></a><br />
+                    <button type='button' onClick={this.handleBack} >Back</button>
+                </form>
+            )
+        }
     }
 }

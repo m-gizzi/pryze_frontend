@@ -1,21 +1,32 @@
-import React from "react";
+import React, { Component } from "react";
 import LoginLogout from "../components/LoginLogout";
+import PaymentPage from "../components/PaymentPage"
 
-const HomePage = (props) => {
 
-    const handleSubmit = (event) => {
+export default class HomePage extends Component {
+    constructor() {
+        super()
+        this.state = {
+            displayPayment: false
+        }
+    }
+
+    handleSubmit = (event) => {
         event.preventDefault()
     }
     
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input onChange={props.handleAmountForm} type="number" min='.01' step=".01" value={props.amountToCharge} /><br/>
-                <input type='submit' value='Play!'/>
-            </form><br/>
-            <LoginLogout handleLogOut={props.handleLogOut} currentUser={props.currentUser} />
-        </div>
-    )
+    render = () => {
+        return (
+            <div>
+                <div>
+                    <form onSubmit={this.handleSubmit}>
+                        <input onChange={this.props.handleAmountForm} type="number" min='.01' step=".01" value={this.props.amountToCharge} /><br/>
+                        <input type='submit' value='Play!'/>
+                    </form><br/>
+                </div>
+                <PaymentPage displayStatus={this.state.displayPayment} amountToCharge={this.props.amountToCharge} currentUser={this.props.currentUser}/>
+                <LoginLogout handleLogOut={this.props.handleLogOut} currentUser={this.props.currentUser} />
+            </div>
+        )
+    }
 }
-
-export default HomePage

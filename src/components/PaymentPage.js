@@ -33,7 +33,7 @@ export default class PaymentPage extends Component {
           body: JSON.stringify({
             nonce: nonce,
             token: buyerVerificationToken,
-            amount: (this.props.amountToCharge) * 100
+            amount: this.props.amountToCharge * 100
           })
       }
       fetch("http://localhost:3000/payments", reqObj)
@@ -42,25 +42,26 @@ export default class PaymentPage extends Component {
       .catch(error => console.log(error))
     }
   
-    createVerificationDetails() {
+    createVerificationDetails = () => {
+      let givenName
+      let email
+      if (this.props.currentUser) {
+        givenName = this.props.currentUser.full_name
+        email = this.props.currentUser.email
+      }
       return {
-        amount: '100.00',
+        amount: (this.props.amountToCharge * 100).toString(),
         currencyCode: "USD",
         intent: "CHARGE",
         billingContact: {
-          familyName: "Smith",
-          givenName: "John",
-          email: "jsmith@example.com",
-          country: "GB",
-          city: "London",
-          addressLines: ["1235 Emperor's Gate"],
-          postalCode: "SW7 4JA",
-          phone: "020 7946 0532"
+          givenName: givenName,
+          email: email,
         }
       }
     }
   
     render() {
+      console.log(this.props)
       return (
         <div>
           <h1>Payment Page</h1>
