@@ -61,11 +61,10 @@ export default class PaymentPage extends Component {
     }
   
     render() {
-      console.log(this.props)
+      // console.log(this.props)
       return (
         <div>
-          <h1>Payment Page</h1>
-  
+
           <SquarePaymentForm
             sandbox={true}
             applicationId={'sandbox-sq0idb-gOudPwTBnxbEYKpxdTvKOw'}
