@@ -33,10 +33,11 @@ export default class PaymentPage extends Component {
           body: JSON.stringify({
             nonce: nonce,
             token: buyerVerificationToken,
-            amount: this.props.amountToCharge * 100
+            amount: this.props.amountToCharge * 100,
+            user: this.props.currentUser
           })
       }
-      fetch("http://localhost:3000/payments", reqObj)
+      fetch("http://localhost:3000/games", reqObj)
       .then(resp => resp.json())
       .then(payment => console.log(payment))
       .catch(error => console.log(error))
