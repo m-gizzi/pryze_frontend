@@ -70,7 +70,11 @@ export default class SignInPage extends Component {
     }
 
     handleBack = () => {
-        this.props.history.push('/')
+        this.props.history.goBack()
+    }
+
+    handleLoginClick = () => {
+        this.props.history.push('/login')
     }
 
     renderErrors = () => {
@@ -98,7 +102,7 @@ export default class SignInPage extends Component {
                     <input type='submit' value='Create Account' /><br />
                     <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
                     <p>Already have an account?  Log in instead!</p>
-                    <a href='/login'><button type='button' >Log In</button></a><br />
+                    <button onClick={this.handleLoginClick} type='button' >Log In</button><br />
                     <button type='button' onClick={this.handleBack} >Back</button>
                 </form>
             )

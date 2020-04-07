@@ -36,11 +36,14 @@ export default class HomePage extends Component {
                     displayStatus={this.state.displayPayment} 
                     amountToCharge={this.props.amountToCharge} 
                     currentUser={this.props.currentUser}
+                    saveCurrentGame={this.props.saveCurrentGame}
+                    history={this.props.history}
                 /> :
                 null}<br/>
                 <LoginLogout 
                     handleLogOut={this.props.handleLogOut} 
                     currentUser={this.props.currentUser} 
+                    history={this.props.history}
                 />
             </div>
         )

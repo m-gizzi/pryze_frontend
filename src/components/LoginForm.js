@@ -52,7 +52,11 @@ export default class LoginForm extends Component {
     }
 
     handleBack = () => {
-        this.props.history.push('/')
+        this.props.history.goBack()
+    }
+
+    handleSignUpClick = () => {
+        this.props.history.push('/signup')
     }
 
     renderErrors = () => {
@@ -76,7 +80,7 @@ export default class LoginForm extends Component {
                         <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
                     </form>
                     <p>Don't have an account yet?  Sign up instead!</p>
-                    <a href='/signup'><button type='button' >Sign Up</button></a><br />
+                    <button onClick={this.handleSignUpClick} type='button' >Sign Up</button><br />
                     <button type='button' onClick={this.handleBack} >Back</button>
                 </div>
             )

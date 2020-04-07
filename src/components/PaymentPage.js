@@ -39,7 +39,10 @@ export default class PaymentPage extends Component {
       }
       fetch("http://localhost:3000/games", reqObj)
       .then(resp => resp.json())
-      .then(payment => console.log(payment))
+      .then(game => {
+        this.props.saveCurrentGame(game)
+        this.props.history.push(`/results/${game.game.square_payment_id}`)
+      })
       .catch(error => console.log(error))
     }
   
@@ -62,7 +65,6 @@ export default class PaymentPage extends Component {
     }
   
     render() {
-      // console.log(this.props)
       return (
         <div>
 

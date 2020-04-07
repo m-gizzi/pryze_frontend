@@ -3,13 +3,15 @@ import SignInPage from './components/SignInPage';
 import LoginForm from './components/LoginForm';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './containers/HomePage';
+import ResultsPage from './components/ResultsPage';
 
 class App extends Component {
   constructor() {
     super()
     this.state = {
       amountToCharge: 0.01,
-      currentUser: undefined
+      currentUser: undefined,
+      currentGame: {}
     }
   }
 
@@ -25,7 +27,7 @@ class App extends Component {
       }
       fetch('http://localhost:3000/auth/autologin', reqObj)
       .then(resp => resp.json())
-      .then(user => this.handleCurrentUser(user))
+      .then(user => this.handleAutoLogin(user))
     }
   }
 
@@ -35,7 +37,14 @@ class App extends Component {
     })
   }
 
+  handleAutoLogin = (user) => {
+    this.setState({
+      currentUser: user
+    })
+  }
+
   handleCurrentUser = (user) => {
+    window.history.back()
     this.setState({
       currentUser: user
     })
@@ -48,16 +57,59 @@ class App extends Component {
     })
   }
 
+  saveCurrentGame = (game) => {
+    this.setState({
+      currentGame: game
+    })
+  }
+
   render = () => {
+    // console.log(this.state)
     return (
       <Router>
         <div className="App">
           <div className="center-container">
             <h1>Pryze</h1>
-            <p>{this.state.currentUser ? `Logged in as: ${this.state.currentUser.username}` : "Continue as a guest, or login to see your play history and save your payment options for convenience."}</p>
-            <Route exact path="/" render={routerProps => <HomePage {...routerProps} handleAmountForm={this.handleAmountForm} amountToCharge={this.state.amountToCharge} currentUser={this.state.currentUser} handleLogOut={this.handleLogOut}/>} />
-            <Route exact path="/login" render={routerProps => <LoginForm {...routerProps} handleCurrentUser={this.handleCurrentUser} currentUser={this.state.currentUser}/>} />
-            <Route exact path='/signup' render={routerProps => <SignInPage {...routerProps} handleCurrentUser={this.handleCurrentUser} currentUser={this.state.currentUser}/>} />
+            <p>{this.state.currentUser ? `Logged in as: ${this.state.currentUser.username}` :
+              "Continue as a guest, or login to see your play history and save your payment options for convenience."}
+            </p>
+            
+            <Route exact path="/" render={routerProps => {
+              return <HomePage 
+                {...routerProps} 
+                handleAmountForm={this.handleAmountForm} 
+                amountToCharge={this.state.amountToCharge} 
+                currentUser={this.state.currentUser} 
+                handleLogOut={this.handleLogOut}
+                saveCurrentGame={this.saveCurrentGame}
+              />
+            }} />
+
+            <Route exact path="/login" render={routerProps => {
+              return <LoginForm 
+                {...routerProps} 
+                handleCurrentUser={this.handleCurrentUser} 
+                currentUser={this.state.currentUser}
+              />
+            }} />
+
+            <Route exact path='/signup' render={routerProps => {
+              return <SignInPage 
+                {...routerProps} 
+                handleCurrentUser={this.handleCurrentUser} 
+                currentUser={this.state.currentUser}
+              />
+            }} />
+
+            <Route path='/results/:id' render={routerProps => {
+              return <ResultsPage 
+                {...routerProps} 
+                saveCurrentGame={this.saveCurrentGame} 
+                currentGame={this.state.currentGame} 
+                currentUser={this.state.currentUser}
+                handleLogOut={this.handleLogOut}
+              />
+            }} />
           </div>
         </div>
       </Router>
