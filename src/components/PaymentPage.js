@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
     SquarePaymentForm,
     CreditCardNumberInput,
@@ -15,6 +15,8 @@ export default class PaymentPage extends Component {
       super(props)
       this.state = {
         errorMessages: [],
+        saveCard: false,
+        postalCode: ''
       }
     }
   
@@ -34,14 +36,18 @@ export default class PaymentPage extends Component {
             nonce: nonce,
             token: buyerVerificationToken,
             amount: this.props.amountToCharge * 100,
-            user: this.props.currentUser
+            user: this.props.currentUser,
+            postal_code: this.state.postalCode
           })
       }
       fetch("http://localhost:3000/games", reqObj)
       .then(resp => resp.json())
       .then(game => {
-        this.props.saveCurrentGame(game)
-        this.props.history.push(`/results/${game.game.square_payment_id}`)
+        console.log(game)
+        if (game.game) {
+          this.props.saveCurrentGame(game)
+          this.props.history.push(`/results/${game.game.square_payment_id}`)
+        }
       })
       .catch(error => console.log(error))
     }
@@ -62,6 +68,18 @@ export default class PaymentPage extends Component {
           email: email,
         }
       }
+    }
+
+    handleCheck = () => {
+      this.setState(prevState => ({
+        saveCard: !prevState.saveCard
+      }))
+    }
+
+    handleChange = (event) => {
+      this.setState({
+        postalCode: event.target.value
+      })
     }
   
     render() {
@@ -90,11 +108,26 @@ export default class PaymentPage extends Component {
                     </div>
                 </fieldset>
 
+                {this.props.currentUser ?
+                <Fragment>
+                  <label htmlFor='save-card' >Check this box to save this card for later use </label>
+                  <input onChange={this.handleCheck} type="checkbox" id='save-card' checked={this.state.saveCard}></input><br/></Fragment> :
+                null}
+
+                {this.state.saveCard ?
+                <Fragment>
+                  <label htmlFor='confirm-zip'>To confirm please reenter your billing postal code: </label>
+                  <input type='number' required id='confirm-zip' value={this.state.postalCode} onChange={this.handleChange} /></Fragment> :
+                null}
+
                 <CreditCardSubmitButton>
                     Pay ${this.props.amountToCharge}
                 </CreditCardSubmitButton>
-          </SquarePaymentForm>
-  
+          </SquarePaymentForm><br/>
+
+
+
+          
           <div className="sq-error-message">
             {this.state.errorMessages.map(errorMessage =>
               <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
