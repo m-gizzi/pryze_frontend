@@ -40,8 +40,8 @@ export default class ResultsPage extends Component {
         }
     }
 
-    handleBack = () => {
-        this.props.history.push('/')
+    handleHome = () => {
+        window.location.replace('/')
     }
     
     render = () => {
@@ -53,7 +53,7 @@ export default class ResultsPage extends Component {
                 </ul>
                 <div>Total: ${this.renderTotal()}</div><br/>
                 <LoginLogout currentUser={this.props.currentUser} handleLogOut={this.props.handleLogOut} history={this.props.history}/><br/>
-                <button type='button' onClick={this.handleBack} >Home</button>
+                <button type='button' onClick={this.handleHome} >Home</button>
             </div>
         )
     }

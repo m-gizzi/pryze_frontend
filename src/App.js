@@ -27,7 +27,7 @@ class App extends Component {
       }
       fetch('http://localhost:3000/auth/autologin', reqObj)
       .then(resp => resp.json())
-      .then(user => this.handleAutoLogin(user))
+      .then(user => this.handleAutoLogin(user.user))
     }
   }
 
@@ -64,7 +64,7 @@ class App extends Component {
   }
 
   render = () => {
-    // console.log(this.state)
+    // console.log(this.state.currentUser)
     return (
       <Router>
         <div className="App">

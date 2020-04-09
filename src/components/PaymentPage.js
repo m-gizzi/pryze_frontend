@@ -40,10 +40,14 @@ export default class PaymentPage extends Component {
             postal_code: this.state.postalCode
           })
       }
+
+      this.sendFetch(reqObj)
+    }
+
+    sendFetch = (reqObj) => {
       fetch("http://localhost:3000/games", reqObj)
       .then(resp => resp.json())
       .then(game => {
-        console.log(game)
         if (game.game) {
           this.props.saveCurrentGame(game)
           this.props.history.push(`/results/${game.game.square_payment_id}`)
@@ -81,6 +85,29 @@ export default class PaymentPage extends Component {
         postalCode: event.target.value
       })
     }
+
+    renderCCOF = () => {
+      return this.props.currentUser.credit_cards.map(creditCard =>{
+        return <option key={creditCard.id} value={creditCard.id} >{`${creditCard.card_brand} ending in ${creditCard.last_four}`}</option>
+      })
+    }
+
+    handleSavedCardClick = () => {
+      const selectedCard = document.getElementById('ccof')
+      const reqObj = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ccof: selectedCard.value,
+          amount: this.props.amountToCharge * 100,
+          user: this.props.currentUser,
+          postal_code: this.state.postalCode
+        })
+      }
+      this.sendFetch(reqObj)
+    }
   
     render() {
       return (
@@ -93,6 +120,22 @@ export default class PaymentPage extends Component {
             cardNonceResponseReceived={this.cardNonceResponseReceived}
             createVerificationDetails={this.createVerificationDetails}
           >
+
+                {this.props.currentUser && this.props.currentUser.credit_cards.length !== 0 ?
+                  
+                  <Fragment>
+                  <label htmlFor='ccof'>Select a credit card on file:</label><br/><br/>
+                  <select id='ccof'>
+                    {this.renderCCOF()}
+                  </select>
+                  <button onClick={this.handleSavedCardClick}>Charge this card ${this.props.amountToCharge}</button>
+                  <br/><br/>
+
+                  <div>Or use a new one:</div><br/>
+                </Fragment> :
+                
+                null}
+                
                 <fieldset className="sq-fieldset">
                     <CreditCardNumberInput />
                     <div className="sq-form-third">
@@ -121,7 +164,7 @@ export default class PaymentPage extends Component {
                 null}
 
                 <CreditCardSubmitButton>
-                    Pay ${this.props.amountToCharge}
+                    Charge this card ${this.props.amountToCharge}
                 </CreditCardSubmitButton>
           </SquarePaymentForm><br/>
 
