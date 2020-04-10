@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import LoginLogout from "./LoginLogout";
+import ResultsMap from "./ResultsMap"
 
 export default class ResultsPage extends Component {
-    constructor() {
-        super()
-        this.state = {
-            game: {}
-        }
-    }
 
     componentDidMount = () => {
         if (!this.props.currentGame.game || this.props.currentGame.game.square_payment_id !== this.props.match.params.id) {
@@ -52,6 +47,8 @@ export default class ResultsPage extends Component {
                     {this.renderDonations()}
                 </ul>
                 <div>Total: ${this.renderTotal()}</div><br/>
+                <ResultsMap
+                    currentGame={this.props.currentGame} />
                 <LoginLogout currentUser={this.props.currentUser} handleLogOut={this.props.handleLogOut} history={this.props.history}/><br/>
                 <button type='button' onClick={this.handleHome} >Home</button>
             </div>
