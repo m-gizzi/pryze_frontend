@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import LoginLogout from "./LoginLogout";
-import ResultsMap from "./ResultsMap"
+import LoginLogout from "../components/LoginLogout";
+import ResultsMap from "../components/ResultsMap"
 
 export default class ResultsPage extends Component {
 

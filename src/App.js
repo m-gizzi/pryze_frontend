@@ -3,7 +3,8 @@ import SignInPage from './components/SignInPage';
 import LoginForm from './components/LoginForm';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './containers/HomePage';
-import ResultsPage from './components/ResultsPage';
+import ResultsPage from './containers/ResultsPage';
+import UserPage from './components/UserPage';
 
 class App extends Component {
   constructor() {
@@ -110,6 +111,15 @@ class App extends Component {
                 handleLogOut={this.handleLogOut}
               />
             }} />
+
+            <Route path='/user/:id' render={routerProps => {
+              return <UserPage
+                {...routerProps}
+                currentUser={this.state.currentUser}
+                handleLogOut={this.handleLogOut}
+              />
+            }} />
+            
           </div>
         </div>
       </Router>

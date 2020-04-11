@@ -26,7 +26,7 @@ export default class ResultsMap extends Component {
     componentDidUpdate = () => {
         if (document.getElementsByClassName("mapboxgl-popup-close-button").length > 0) {
             const x = document.getElementsByClassName("mapboxgl-popup-close-button")[0]
-            x.addEventListener('click', this.handleClick)
+            x.addEventListener('click', this.handleClose)
         }
     }
 
