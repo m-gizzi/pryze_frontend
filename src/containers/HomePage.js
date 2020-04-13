@@ -27,7 +27,7 @@ export default class HomePage extends Component {
     render = () => {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
+                <form className="amount-form" onSubmit={this.handleSubmit}>
                     <input onFocus={this.handleFocus} onChange={this.props.handleAmountForm} type="number" min='.01' step=".01" value={this.props.amountToCharge} /><br/>
                     <input type='submit' value='Play!'/>
                 </form><br/>

@@ -68,59 +68,57 @@ class App extends Component {
     // console.log(this.state.currentUser)
     return (
       <Router>
-        <div className="App">
-          <div className="center-container">
-            <h1>Pryze</h1>
-            <p>{this.state.currentUser ? `Logged in as: ${this.state.currentUser.username}` :
-              "Continue as a guest, or login to see your play history and save your payment options for convenience."}
-            </p>
-            
-            <Route exact path="/" render={routerProps => {
-              return <HomePage 
-                {...routerProps} 
-                handleAmountForm={this.handleAmountForm} 
-                amountToCharge={this.state.amountToCharge} 
-                currentUser={this.state.currentUser} 
-                handleLogOut={this.handleLogOut}
-                saveCurrentGame={this.saveCurrentGame}
-              />
-            }} />
+        <div className="center-container">
+          <h1 className="app-title">Pryze</h1>
+          <p>{this.state.currentUser ? `Logged in as: ${this.state.currentUser.username}` :
+            "Continue as a guest, or login to see your play history and save your payment options for convenience."}
+          </p>
+          
+          <Route exact path="/" render={routerProps => {
+            return <HomePage 
+              {...routerProps} 
+              handleAmountForm={this.handleAmountForm} 
+              amountToCharge={this.state.amountToCharge} 
+              currentUser={this.state.currentUser} 
+              handleLogOut={this.handleLogOut}
+              saveCurrentGame={this.saveCurrentGame}
+            />
+          }} />
 
-            <Route exact path="/login" render={routerProps => {
-              return <LoginForm 
-                {...routerProps} 
-                handleCurrentUser={this.handleCurrentUser} 
-                currentUser={this.state.currentUser}
-              />
-            }} />
+          <Route exact path="/login" render={routerProps => {
+            return <LoginForm 
+              {...routerProps} 
+              handleCurrentUser={this.handleCurrentUser} 
+              currentUser={this.state.currentUser}
+            />
+          }} />
 
-            <Route exact path='/signup' render={routerProps => {
-              return <SignInPage 
-                {...routerProps} 
-                handleCurrentUser={this.handleCurrentUser} 
-                currentUser={this.state.currentUser}
-              />
-            }} />
+          <Route exact path='/signup' render={routerProps => {
+            return <SignInPage 
+              {...routerProps} 
+              handleCurrentUser={this.handleCurrentUser} 
+              currentUser={this.state.currentUser}
+            />
+          }} />
 
-            <Route path='/results/:id' render={routerProps => {
-              return <ResultsPage 
-                {...routerProps} 
-                saveCurrentGame={this.saveCurrentGame} 
-                currentGame={this.state.currentGame} 
-                currentUser={this.state.currentUser}
-                handleLogOut={this.handleLogOut}
-              />
-            }} />
+          <Route path='/results/:id' render={routerProps => {
+            return <ResultsPage 
+              {...routerProps} 
+              saveCurrentGame={this.saveCurrentGame} 
+              currentGame={this.state.currentGame} 
+              currentUser={this.state.currentUser}
+              handleLogOut={this.handleLogOut}
+            />
+          }} />
 
-            <Route path='/user/:id' render={routerProps => {
-              return <UserPage
-                {...routerProps}
-                currentUser={this.state.currentUser}
-                handleLogOut={this.handleLogOut}
-              />
-            }} />
-            
-          </div>
+          <Route path='/user/:id' render={routerProps => {
+            return <UserPage
+              {...routerProps}
+              currentUser={this.state.currentUser}
+              handleLogOut={this.handleLogOut}
+            />
+          }} />
+          
         </div>
       </Router>
     );

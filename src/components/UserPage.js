@@ -56,7 +56,7 @@ export default class UserPage extends Component {
         const { match, currentUser, handleLogOut, history } = this.props
         if (currentUser && currentUser.square_id === match.params.id) {
             return (
-                <div>
+                <div className="user-page-container">
                     <h1>{currentUser.full_name}</h1>
                     <div>{`Username: ${currentUser.username}`}<br/>
                     {`Email: ${currentUser.email}`}
