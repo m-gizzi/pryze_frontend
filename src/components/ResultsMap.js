@@ -15,8 +15,8 @@ export default class ResultsMap extends Component {
                 latitude: 41.881832,
                 longitude: -87.623177,
                 zoom: 10,
-                width: "50vw",
-                height: "50vh",
+                width: "300px",
+                height: "300px",
                 maxZoom: 16
             },
             selectedFundraiser: null
@@ -88,10 +88,12 @@ export default class ResultsMap extends Component {
     render = () => {
         if (this.props.currentGame.game) {
             return (
-                <div><button onClick={this.recenterMap}>Return map to starting point</button>
+                <div className="inner-map-container">
+                    <button className="blue-buttons" onClick={this.recenterMap}>Return map to starting point</button>
                     <ReactMapGL 
                         {...this.state.viewport}
                         onLoad={this.recenterMap}
+                        mapStyle='mapbox://styles/mgizzi3ru/ck8z3s4k001191jqtm6bp5rzx'
                         mapboxApiAccessToken="pk.eyJ1IjoibWdpenppM3J1IiwiYSI6ImNrOHQyemNmZjBhY3kzZW12ZmYycGJjMGUifQ.HDKamhzm23YZU9P54Dsibg"
                         onViewportChange={viewport => {
                             this.setState({

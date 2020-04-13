@@ -42,15 +42,19 @@ export default class ResultsPage extends Component {
     render = () => {
         return (
             <div>
-                <p>These are the results of your donation:</p>
-                <ul>
-                    {this.renderDonations()}
-                </ul>
-                <div>Total: ${this.renderTotal()}</div><br/>
-                <ResultsMap
-                    currentGame={this.props.currentGame} />
-                <LoginLogout currentUser={this.props.currentUser} handleLogOut={this.props.handleLogOut} history={this.props.history}/><br/>
-                <button type='button' onClick={this.handleHome} >Home</button>
+                <div className="outer-map-container">
+                    <div className="result-info-container">
+                        <p>These are the results of your donation:</p>
+                        <ul>
+                            {this.renderDonations()}
+                        </ul>
+                        <div>Total: ${this.renderTotal()}</div>
+                    </div>
+                    <ResultsMap
+                        currentGame={this.props.currentGame} />
+                </div>
+                <LoginLogout currentUser={this.props.currentUser} handleLogOut={this.props.handleLogOut} history={this.props.history}/>
+                <div className="home-container"><button className="blue-buttons" type='button' onClick={this.handleHome} >Home</button></div>
             </div>
         )
     }

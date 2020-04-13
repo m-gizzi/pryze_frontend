@@ -16,7 +16,8 @@ export default class PaymentPage extends Component {
       this.state = {
         errorMessages: [],
         saveCard: false,
-        postalCode: ''
+        postalCode: '',
+        displayLoading: false
       }
     }
   
@@ -25,7 +26,7 @@ export default class PaymentPage extends Component {
         this.setState({ errorMessages: errors.map(error => error.message) })
         return
       }
-      this.setState({ errorMessages: [] })
+      this.setState({ errorMessages: [], displayLoading: true })
       alert("nonce created: " + nonce + ", buyerVerificationToken: " + buyerVerificationToken)
       const reqObj = {
           method: "POST",
@@ -93,6 +94,9 @@ export default class PaymentPage extends Component {
     }
 
     handleSavedCardClick = () => {
+      this.setState({
+        displayLoading: true
+      })
       const selectedCard = document.getElementById('ccof')
       const reqObj = {
         method: "POST",
@@ -111,73 +115,93 @@ export default class PaymentPage extends Component {
   
     render() {
       return (
-        <div>
+        <div className="payment-form">
 
-          <SquarePaymentForm
-            sandbox={true}
-            applicationId={'sandbox-sq0idb-gOudPwTBnxbEYKpxdTvKOw'}
-            locationId={'3J44BEJN11JNZ'}
-            cardNonceResponseReceived={this.cardNonceResponseReceived}
-            createVerificationDetails={this.createVerificationDetails}
-          >
+          {this.state.displayLoading ?
+            <div className="preloader-wrapper active">
+              <div className="spinner-layer spinner-red-only">
+                <div className="circle-clipper left">
+                  <div className="circle"></div>
+                </div><div className="gap-patch">
+                  <div className="circle"></div>
+                </div><div className="circle-clipper right">
+                  <div className="circle"></div>
+                </div>
+              </div>
+            </div>
 
-                {this.props.currentUser && this.props.currentUser.credit_cards.length !== 0 ?
-                  
-                  <Fragment>
-                  <label htmlFor='ccof'>Select a credit card on file:</label><br/><br/>
-                  <select id='ccof'>
-                    {this.renderCCOF()}
-                  </select>
-                  <button onClick={this.handleSavedCardClick}>Charge this card ${this.props.amountToCharge}</button>
-                  <br/><br/>
+            :
+            <div>
+              <SquarePaymentForm
+                sandbox={true}
+                applicationId={'sandbox-sq0idb-gOudPwTBnxbEYKpxdTvKOw'}
+                locationId={'3J44BEJN11JNZ'}
+                cardNonceResponseReceived={this.cardNonceResponseReceived}
+                createVerificationDetails={this.createVerificationDetails}
+              >
 
-                  <div>Or use a new one:</div><br/>
-                </Fragment> :
-                
-                null}
-                
-                <fieldset className="sq-fieldset">
-                    <CreditCardNumberInput />
-                    <div className="sq-form-third">
-                    <CreditCardExpirationDateInput />
-                    </div>
+                    {this.props.currentUser && this.props.currentUser.credit_cards.length !== 0 ?
+                      
+                      <Fragment>
+                        
+                      <label htmlFor='ccof'>Select a credit card on file:</label><br/><br/>
+                      <div className="ccof-container">
+                        <select className="app-drop-down" id='ccof'>
+                          {this.renderCCOF()}
+                        </select>
+                        <button className="pay-credit-card-on-file" onClick={this.handleSavedCardClick}>Charge this card ${this.props.amountToCharge}</button>
+                      </div>
+                      <br/>
 
-                    <div className="sq-form-third">
-                    <CreditCardPostalCodeInput />
-                    </div>
+                      <div>Or use a new one:</div><br/>
+                    </Fragment> :
+                    
+                    null}
+                    
+                    <fieldset className="sq-fieldset">
+                        <CreditCardNumberInput />
+                        <div className="sq-form-third">
+                        <CreditCardExpirationDateInput />
+                        </div>
 
-                    <div className="sq-form-third">
-                    <CreditCardCVVInput />
-                    </div>
-                </fieldset>
+                        <div className="sq-form-third">
+                        <CreditCardPostalCodeInput />
+                        </div>
 
-                {this.props.currentUser ?
-                <Fragment>
-                  <label htmlFor='save-card' >Check this box to save this card for later use </label>
-                  <input onChange={this.handleCheck} type="checkbox" id='save-card' checked={this.state.saveCard}></input><br/></Fragment> :
-                null}
+                        <div className="sq-form-third">
+                        <CreditCardCVVInput />
+                        </div>
+                    </fieldset>
 
-                {this.state.saveCard ?
-                <Fragment>
-                  <label htmlFor='confirm-zip'>To confirm please reenter your billing postal code: </label>
-                  <input type='number' required id='confirm-zip' value={this.state.postalCode} onChange={this.handleChange} /></Fragment> :
-                null}
+                    {this.props.currentUser ?
+                    <Fragment>
+                      <label htmlFor='save-card' >Check this box to save this card for later use </label>
+                      <input onChange={this.handleCheck} type="checkbox" id='save-card' checked={this.state.saveCard}></input><br/></Fragment> :
+                    null}
 
-                <CreditCardSubmitButton>
-                    Charge this card ${this.props.amountToCharge}
-                </CreditCardSubmitButton>
-          </SquarePaymentForm><br/>
+                    {this.state.saveCard ?
+                    <Fragment>
+                      <label htmlFor='confirm-zip'>To confirm please reenter your billing postal code: </label>
+                      <div className="zip-code-confirmation"><input className="input-number" type='number' id='confirm-zip' value={this.state.postalCode} onChange={this.handleChange} /></div></Fragment> :
+                    null}
+
+                    <CreditCardSubmitButton>
+                        Charge this card ${this.props.amountToCharge}
+                    </CreditCardSubmitButton>
+              </SquarePaymentForm>
 
 
 
-          
-          <div className="sq-error-message">
-            {this.state.errorMessages.map(errorMessage =>
-              <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
-            )}
-          </div>
-  
+              
+              <div className="sq-error-message">
+                {this.state.errorMessages.map(errorMessage =>
+                  <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
+                )}
+              </div>
+            </div>
+          }
         </div>
+        
       )
     }
   }

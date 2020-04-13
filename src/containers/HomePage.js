@@ -17,6 +17,12 @@ export default class HomePage extends Component {
             displayPayment: true
         })
     }
+
+    handleFocus = () => {
+        this.setState({
+            displayPayment: false
+        })
+    }
     
     render = () => {
         // debugger
@@ -25,7 +31,7 @@ export default class HomePage extends Component {
                 <form className="amount-form" onSubmit={this.handleSubmit}>
                     <span onClick={this.props.handleAmountButtons} className="input-number-decrement">–</span>
                     <span className="input-label-dollar">$</span>
-                    <input className="input-number" type="number" onChange={this.props.handleAmountForm} value={this.props.amountToCharge} />
+                    <input onFocus={this.handleFocus} className="input-number" type="number" onChange={this.props.handleAmountForm} value={this.props.amountToCharge} />
                     <span onClick={this.props.handleAmountButtons} className="input-number-increment">+</span>
                     <input className="blue-buttons" type='submit' value='Play!'/>
                 </form><br/>
@@ -37,7 +43,7 @@ export default class HomePage extends Component {
                     saveCurrentGame={this.props.saveCurrentGame}
                     history={this.props.history}
                 /> :
-                null}<br/>
+                null}
                 <LoginLogout 
                     handleLogOut={this.props.handleLogOut} 
                     currentUser={this.props.currentUser} 
