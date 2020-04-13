@@ -11,12 +11,6 @@ export default class HomePage extends Component {
         }
     }
 
-    handleFocus = () => {
-        this.setState({
-            displayPayment: false
-        })
-    }
-
     handleSubmit = (event) => {
         event.preventDefault()
         this.setState({
@@ -25,16 +19,20 @@ export default class HomePage extends Component {
     }
     
     render = () => {
+        // debugger
         return (
             <div>
                 <form className="amount-form" onSubmit={this.handleSubmit}>
-                    <input onFocus={this.handleFocus} onChange={this.props.handleAmountForm} type="number" min='.01' step=".01" value={this.props.amountToCharge} /><br/>
-                    <input type='submit' value='Play!'/>
+                    <span onClick={this.props.handleAmountButtons} className="input-number-decrement">–</span>
+                    <span className="input-label-dollar">$</span>
+                    <input className="input-number" type="number" onChange={this.props.handleAmountForm} value={this.props.amountToCharge} />
+                    <span onClick={this.props.handleAmountButtons} className="input-number-increment">+</span>
+                    <input className="blue-buttons" type='submit' value='Play!'/>
                 </form><br/>
                 {this.state.displayPayment ?
                 <PaymentPage 
                     displayStatus={this.state.displayPayment} 
-                    amountToCharge={this.props.amountToCharge} 
+                    amountToCharge={this.props.amountToCharge.toFixed(2)} 
                     currentUser={this.props.currentUser}
                     saveCurrentGame={this.props.saveCurrentGame}
                     history={this.props.history}

@@ -10,7 +10,7 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      amountToCharge: 0.01,
+      amountToCharge: 1,
       currentUser: undefined,
       currentGame: {}
     }
@@ -36,6 +36,21 @@ class App extends Component {
     this.setState({
       amountToCharge: event.target.value
     })
+  }
+
+  handleAmountButtons = (event) => {
+    // debugger
+    if (event.target.className === "input-number-increment") {
+      this.setState(prevState => ({
+        amountToCharge: parseFloat(prevState.amountToCharge) + 1
+      }))
+    } else if (event.target.className === "input-number-decrement") {
+      if (this.state.amountToCharge > 1) {
+        this.setState(prevState => ({
+          amountToCharge: parseFloat(prevState.amountToCharge) - 1
+        }))
+      }
+    }
   }
 
   handleAutoLogin = (user) => {
@@ -71,14 +86,15 @@ class App extends Component {
         <div className="center-container">
           <h1 className="app-title">Pryze</h1>
           <p>{this.state.currentUser ? `Logged in as: ${this.state.currentUser.username}` :
-            "Continue as a guest, or login to see your play history and save your payment options for convenience."}
+            "Continue as a guest, or login to conviently see your play history and save your payment options."}
           </p>
           
           <Route exact path="/" render={routerProps => {
             return <HomePage 
               {...routerProps} 
               handleAmountForm={this.handleAmountForm} 
-              amountToCharge={this.state.amountToCharge} 
+              handleAmountButtons={this.handleAmountButtons}
+              amountToCharge={parseFloat(this.state.amountToCharge)} 
               currentUser={this.state.currentUser} 
               handleLogOut={this.handleLogOut}
               saveCurrentGame={this.saveCurrentGame}

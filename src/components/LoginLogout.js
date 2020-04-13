@@ -17,12 +17,12 @@ const LoginLogout = (props) => {
     return (
         props.currentUser ?
         <div className="login-logout-buttons">
-            <button type='button' onClick={props.handleLogOut}>Log Out</button>
-            {props.history.location.pathname.includes("user") ? null : <button type='button' onClick={handleUserPage}>My Account</button>}
+            <button className="blue-buttons" type='button' onClick={props.handleLogOut}>Log Out</button>
+            {props.history.location.pathname.includes("user") ? null : <button className="blue-buttons" type='button' onClick={handleUserPage}>My Account</button>}
         </div> :
         <div className="login-logout-buttons">
-            <button onClick={handleSignUpClick} type='button' >Sign Up</button>
-            <button onClick={handleLoginClick} type='button' >Log In</button>
+            <button className="blue-buttons" onClick={handleSignUpClick} type='button' >Sign Up</button>
+            <button className="blue-buttons" onClick={handleLoginClick} type='button' >Log In</button>
         </div>
     )
 }

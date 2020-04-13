@@ -52,7 +52,7 @@ export default class LoginForm extends Component {
     }
 
     handleBack = () => {
-        this.props.history.goBack()
+        this.props.history.push('/')
     }
 
     handleSignUpClick = () => {
@@ -61,7 +61,7 @@ export default class LoginForm extends Component {
 
     renderErrors = () => {
         return this.state.error.map((error, index) => {
-            return <p key={index} >{error}</p>
+            return <li key={index} >{error}</li>
         })
     }
 
@@ -71,17 +71,17 @@ export default class LoginForm extends Component {
         } else {
             return (
                 <div>
-                    <form id='login-form' onSubmit={this.handleSubmit}>
-                        <label htmlFor='login-username'>Username</label>
-                        <input type='text' required onChange={this.handleInputChange} id='login-username' name='username' value={this.state.username}/><br/>
-                        <label htmlFor='login-password'>Password</label>
-                        <input type='password' required onChange={this.handleInputChange} id='login-password' name='password' value={this.state.password}/><br/>
-                        <input type='submit' value='Log In' /><br />
-                        <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
+                    <form className="log-in-form" id='login-form' onSubmit={this.handleSubmit}>
+                        <div className="form-row"><span className="input-label"><label htmlFor='login-username'>Username</label></span>
+                        <input className="input-text" type='text' required onChange={this.handleInputChange} id='login-username' name='username' value={this.state.username}/></div><br/>
+                        <div className="form-row"><span className="input-label"><label htmlFor='login-password'>Password</label></span>
+                        <input className="input-text" type='password' required onChange={this.handleInputChange} id='login-password' name='password' value={this.state.password}/></div><br/>
+                        <input className="blue-buttons" type='submit' value='Log In' />
+                        {this.state.error ? <div className="sq-error-message">{this.renderErrors()}</div> : ''}
+                        <p className="centered-text">Don't have an account yet?  Sign up instead!</p>
+                        <button className="blue-buttons" onClick={this.handleSignUpClick} type='button' >Sign Up</button>
+                        <button className="blue-buttons" type='button' onClick={this.handleBack} >Back</button>
                     </form>
-                    <p>Don't have an account yet?  Sign up instead!</p>
-                    <button onClick={this.handleSignUpClick} type='button' >Sign Up</button><br />
-                    <button type='button' onClick={this.handleBack} >Back</button>
                 </div>
             )
         }

@@ -31,7 +31,7 @@ body {
   max-height: 100%;
   width: auto;
   border: 3px solid rgb(0, 0, 0);
-  padding: 10px;
+  padding: 30px;
   background-color: #DBDBDB;
   position: absolute;
   top: 50%;
@@ -44,21 +44,32 @@ body {
 
 .app-title {
 	margin-bottom: 0px;
-	margin-top: 14px;
+	margin-top: 0px;
 }
 
 .center-container > div {
-	margin: 0px 60px;
+	width: 100%;
+	max-height: 100%;
+	overflow: scroll;
 }
 
-.center-container div.login-logout-buttons {	
-	margin-bottom: 21.440px;
+.center-container div.login-logout-buttons {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
 }
 
 .amount-form {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
+}
+
+.sign-in-form,
+.log-in-form {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 .user-page-container {
@@ -75,4 +86,116 @@ body {
 .marker-btn img {
 	width: 20px;
 	height: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.input-number {
+  width: 80px;
+  padding: 0 12px;
+  vertical-align: top;
+  text-align: center;
+  outline: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.input-label {
+	display: table-cell;
+	width: 50%;
+	line-height: 38px;
+	background: #f1f1f1;
+	color: #444;
+	text-align: center;
+	font-weight: bold;
+	min-width: 30px;  
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.input-label-dollar {
+	line-height: 38px;
+	background: #f1f1f1;
+	color: #444;
+	text-align: center;
+	font-weight: bold;
+	min-width: 30px;  
+}
+
+ .input-text {
+	display: table-cell;
+	text-align: center;
+	width: 100%;
+ }
+
+ .form-row {
+	 width: 100%;
+	 display: table;
+ }
+
+.input-number,
+.input-text,
+.input-number-decrement,
+.input-number-increment,
+.input-label,
+.input-label-dollar {
+  border: 1px solid #ccc;
+  height: 40px;
+  user-select: none;
+}
+
+.input-number-decrement,
+.input-number-increment {
+  display: inline-block;
+  width: 30px;
+  line-height: 38px;
+  background: #f1f1f1;
+  color: #444;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.input-number-decrement:active,
+.input-number-increment:active {
+	background: #ddd	
+}
+
+.input-number-decrement {
+	border-right-style: none;
+	border-radius: 4px 0 0 4px;
+}
+
+.input-number-increment {
+	border-left-style: none;
+	border-radius: 0 4px 4px 0;
+}
+
+.blue-buttons {
+	background-color: #4A90E2;
+	border-radius: 4px;
+	cursor: pointer;
+	color: #FFFFFF;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: 700;
+	letter-spacing: 0;
+	text-align: center;
+	transition-duration:  0.2s;
+	transition-timing-function: ease-in-out;
+	transition-delay: 0s;
+}
+
+.blue-buttons:hover {
+	background-color: #4281CB;
+}
+
+.centered-text {
+	text-align: center;
 }

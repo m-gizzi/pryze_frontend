@@ -70,7 +70,7 @@ export default class SignInPage extends Component {
     }
 
     handleBack = () => {
-        this.props.history.goBack()
+        this.props.history.push('/')
     }
 
     handleLoginClick = () => {
@@ -79,7 +79,7 @@ export default class SignInPage extends Component {
 
     renderErrors = () => {
         return this.state.error.map((error, index) => {
-            return <p key={index} >{error}</p>
+            return <li className="error-text" key={index} >{error}</li>
         })
     }
 
@@ -89,22 +89,22 @@ export default class SignInPage extends Component {
         } else {
             return (
                 <div>
-                    <form onSubmit={this.handleSubmit}>
-                        <label htmlFor='sign-up-username'>Username</label>
-                        <input type='text' required onChange={this.handleInputChange} id='sign-up-username' name='username' value={this.state.username}/><br/>
-                        <label htmlFor='full-name'>Full Name</label>
-                        <input type='text' required onChange={this.handleInputChange} id='full-name' name='full_name' value={this.state.full_name}/><br/>
-                        <label htmlFor='sign-up-password'>Password</label>
-                        <input type='password' required onChange={this.handleInputChange} id='sign-up-password' name='password' value={this.state.password}/><br/>
-                        <label htmlFor='password-confirm'>Confirm Password</label>
-                        <input type='password' required onChange={this.handleInputChange} id='password-confirm' name='password_confirmation' value={this.state.password_confirmation}/><br/>
-                        <label htmlFor='email'>Email</label>
-                        <input type='text' required onChange={this.handleInputChange} id='email' name='email' value={this.state.email}/><br/>
-                        <input type='submit' value='Create Account' /><br />
-                        <div>{this.state.error ? <div>{this.renderErrors()}</div> : ''}</div>
-                        <p>Already have an account?  Log in instead!</p>
-                        <button onClick={this.handleLoginClick} type='button' >Log In</button><br />
-                        <button type='button' onClick={this.handleBack} >Back</button>
+                    <form className="sign-in-form" onSubmit={this.handleSubmit}>
+                        <div className="form-row"><span className="input-label"><label htmlFor='sign-up-username'>Username</label></span>
+                        <input className="input-text" type='text' required onChange={this.handleInputChange} id='sign-up-username' name='username' value={this.state.username}/></div><br/>
+                        <div className="form-row"><span className="input-label"><label htmlFor='full-name'>Full Name</label></span>
+                        <input className="input-text" type='text' required onChange={this.handleInputChange} id='full-name' name='full_name' value={this.state.full_name}/></div><br/>
+                        <div className="form-row"><span className="input-label"><label htmlFor='sign-up-password'>Password</label></span>
+                        <input className="input-text" type='password' required onChange={this.handleInputChange} id='sign-up-password' name='password' value={this.state.password}/></div><br/>
+                        <div className="form-row"><span className="input-label"><label htmlFor='password-confirm'>Confirm Password</label></span>
+                        <input className="input-text" type='password' required onChange={this.handleInputChange} id='password-confirm' name='password_confirmation' value={this.state.password_confirmation}/></div><br/>
+                        <div className="form-row"><span className="input-label"><label htmlFor='email'>Email</label></span>
+                        <input className="input-text" type='text' required onChange={this.handleInputChange} id='email' name='email' value={this.state.email}/></div><br/>
+                        <input className="blue-buttons" type='submit' value='Create Account' />
+                        {this.state.error ? <div className="sq-error-message">{this.renderErrors()}</div> : ''}
+                        <p className="centered-text">Already have an account?  Log in instead!</p>
+                        <button className="blue-buttons" onClick={this.handleLoginClick} type='button' >Log In</button>
+                        <button className="blue-buttons" type='button' onClick={this.handleBack} >Back</button>
                     </form>
                 </div>
             )
