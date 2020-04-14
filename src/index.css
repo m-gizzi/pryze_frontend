@@ -28,7 +28,7 @@ body {
 
 .center-container {
   height: auto;
-  max-height: 100%;
+  max-height: 98%;
   width: auto;
   border: 3px solid rgb(0, 0, 0);
   padding: 30px;
@@ -53,7 +53,8 @@ body {
 	overflow: scroll;
 }
 
-.center-container div.login-logout-buttons {
+.center-container div.login-logout-buttons,
+.user-page-home-container {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -80,11 +81,6 @@ body {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-}
-
-.user-page-container {
-	max-height: 90%;
-	overflow: scroll;
 }
 
 .marker-btn {
@@ -488,4 +484,69 @@ input[type=number]::-webkit-outer-spin-button {
 	100% {
 		transform: rotate(-130deg);
 	}
+}
+
+.payment-methods,
+.fundraisers-sorted,
+.game-history {
+	width: max-content;
+	min-width: 250px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+	max-height: 60vh;
+	text-align: center;
+}
+
+.payment-methods-scroll,
+.fundraisers-sorted-scroll,
+.game-history-scroll {
+	overflow: scroll;
+	margin-top: 10px;
+	max-height: 90%;
+	background-color: white;
+	box-sizing: border-box;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	line-height: 25px;
+	border-width: thick;
+	border-style: double;
+}
+
+.user-page-container {
+	width: auto;
+	min-width: fit-content;
+	display: flex;
+	border-width: thick;
+	border-style: double;
+	padding: 10px;
+}
+
+.center-container > div.outer-user-page-container {
+	width: auto;
+	max-height: 100%;
+	overflow: hidden;
+}
+
+ul {
+	list-style-type: none;
+	padding: 8px 30px;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+a:active {
+	color: #EE0000;
+}
+
+a li {
+	padding: 0px 5px;
+}
+
+a li:hover {
+	background-color: #ED217C;
+	border-radius: 4px;
 }

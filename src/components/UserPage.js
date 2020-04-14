@@ -51,48 +51,51 @@ export default class UserPage extends Component {
     }
 
     render = () => {
-        console.log(this.state, this.props.currentUser)
         this.fetchAdditionalInfo()
         const { match, currentUser, handleLogOut, history } = this.props
         if (currentUser && currentUser.square_id === match.params.id) {
             return (
-                <div className="user-page-container">
-                    <h1>{currentUser.full_name}</h1>
-                    <div>{`Username: ${currentUser.username}`}<br/>
-                    {`Email: ${currentUser.email}`}
-                    </div><br/>
+                <div className="outer-user-page-container">
+                    <div className="user-page-container">
 
-                    <div>
-                        These are your saved payment methods:
-                        <ul>
-                            {this.renderCardsOnFile()}
-                        </ul>
-                    </div><br/>
+                        <div className="payment-methods">
+                            <h1>{currentUser.full_name}</h1>
+                            <div>{`Username: ${currentUser.username}`}<br/>
+                            {`Email: ${currentUser.email}`}
+                            </div><br/>
 
-                    <div>
-                        Here's your game history so far:
-                        <div>
-                            <ul>
-                                {this.renderGameHistory()}
-                            </ul>
+                            These are your saved payment methods:
+                            <div className="payment-methods-scroll">
+                                <ul>
+                                    {this.renderCardsOnFile()}
+                                </ul>
+                            </div>
                         </div>
-                    </div><br/>
 
-                    <div>
-                        Here are all the fundraisers you've contributed to:
-                        <div>
-                            <ul>
-                                {this.renderFundraiserScoreCard()}
-                            </ul>
+                        <div className="game-history">
+                            Here's your game history so far:
+                            <div className="game-history-scroll">
+                                <ul>
+                                    {this.renderGameHistory()}
+                                </ul>
+                            </div>
                         </div>
-                    </div><br/>
 
+                        <div className="fundraisers-sorted">
+                            Here are all the fundraisers you've contributed to:
+                            <div className="fundraisers-sorted-scroll">
+                                <ul>
+                                    {this.renderFundraiserScoreCard()}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <LoginLogout
-                        handleLogOut={handleLogOut} 
-                        currentUser={currentUser} 
-                        history={history}
-                    />
-                    <button type='button' onClick={this.handleHome} >Home</button>
+                            handleLogOut={handleLogOut} 
+                            currentUser={currentUser} 
+                            history={history}
+                        />
+                    <div className="user-page-home-container"><button className='blue-buttons' type='button' onClick={this.handleHome} >Home</button></div>
                 </div>
             )
         } else {
@@ -104,7 +107,7 @@ export default class UserPage extends Component {
                         currentUser={currentUser} 
                         history={history}
                     />
-                    <button type='button' onClick={this.handleHome} >Home</button>
+                    <div className="user-page-home-container"><button className='blue-buttons' type='button' onClick={this.handleHome} >Home</button></div>
                 </div>
             )
         }
