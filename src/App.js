@@ -132,6 +132,7 @@ class App extends Component {
               {...routerProps}
               currentUser={this.state.currentUser}
               handleLogOut={this.handleLogOut}
+              handleCurrentUser={this.handleAutoLogin}
             />
           }} />
           

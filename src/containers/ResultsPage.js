@@ -3,6 +3,12 @@ import LoginLogout from "../components/LoginLogout";
 import ResultsMap from "../components/ResultsMap"
 
 export default class ResultsPage extends Component {
+    constructor() {
+        super()
+        this.state = {
+            selectedFundraiser: null
+        }
+    }
 
     componentDidMount = () => {
         if (!this.props.currentGame.game || this.props.currentGame.game.square_payment_id !== this.props.match.params.id) {
@@ -18,7 +24,7 @@ export default class ResultsPage extends Component {
         const { game } = this.props.currentGame
         if (game) {
             return game.donations.map(donationEntry => {
-                return <li key={donationEntry.donation.id}>
+                return <li className="hoverable-li" key={donationEntry.donation.id } onMouseMove={() => this.handleClick(donationEntry)} >
                     {`${donationEntry.fundraiser.name} - $${donationEntry.donation.amount.toFixed(2)}`}
                 </li>
             })
@@ -38,20 +44,37 @@ export default class ResultsPage extends Component {
     handleHome = () => {
         window.location.replace('/')
     }
+
+    handleClick = (donationEntry) => {
+        this.setState({
+            selectedFundraiser: donationEntry
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            selectedFundraiser: null
+        })
+    }
     
     render = () => {
         return (
             <div>
                 <div className="outer-map-container">
                     <div className="result-info-container">
-                        <p>These are the results of your donation:</p>
-                        <ul>
-                            {this.renderDonations()}
-                        </ul>
+                        <div>These are the results of your donation:</div>
+                        <div className='donation-scroll'>
+                            <ul>
+                                {this.renderDonations()}
+                            </ul>
+                        </div>
                         <div>Total: ${this.renderTotal()}</div>
                     </div>
                     <ResultsMap
-                        currentGame={this.props.currentGame} />
+                        currentGame={this.props.currentGame} 
+                        selectedFundraiser={this.state.selectedFundraiser}
+                        handleClick={this.handleClick}
+                        handleClose={this.handleClose}/>
                 </div>
                 <LoginLogout currentUser={this.props.currentUser} handleLogOut={this.props.handleLogOut} history={this.props.history}/>
                 <div className="home-container"><button className="blue-buttons" type='button' onClick={this.handleHome} >Home</button></div>

@@ -17,6 +17,7 @@ export default class UserPage extends Component {
             fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
             .then(resp => resp.json())
             .then(userData => {
+                this.props.handleCurrentUser(userData.user)
                 this.setState({
                     games: userData.games,
                     fundraisers: userData.fundraisers

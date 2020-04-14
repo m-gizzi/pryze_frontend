@@ -18,15 +18,14 @@ export default class ResultsMap extends Component {
                 width: "300px",
                 height: "300px",
                 maxZoom: 16
-            },
-            selectedFundraiser: null
+            }
         }
     }
 
     componentDidUpdate = () => {
         if (document.getElementsByClassName("mapboxgl-popup-close-button").length > 0) {
             const x = document.getElementsByClassName("mapboxgl-popup-close-button")[0]
-            x.addEventListener('click', this.handleClose)
+            x.addEventListener('click', () => this.props.handleClose())
         }
     }
 
@@ -68,20 +67,8 @@ export default class ResultsMap extends Component {
             return <Marker key={`marker-${donationEntry.donation.id}`} 
                 latitude={donationEntry.fundraiser.latitude}
                 longitude={donationEntry.fundraiser.longitude}>
-                    <button className='marker-btn' onClick={() => this.handleClick(donationEntry)}><img src="/map-pushpin.svg" alt="Fundraiser Location"/></button>
+                    <button className='marker-btn' onClick={() => this.props.handleClick(donationEntry)}><img src="/map-pushpin.svg" alt="Fundraiser Location"/></button>
             </Marker>
-        })
-    }
-
-    handleClick = (donationEntry) => {
-        this.setState({
-            selectedFundraiser: donationEntry
-        })
-    }
-
-    handleClose = () => {
-        this.setState({
-            selectedFundraiser: null
         })
     }
 
@@ -104,14 +91,14 @@ export default class ResultsMap extends Component {
 
                         {this.renderMarkers()}
 
-                        {this.state.selectedFundraiser && this.state.selectedFundraiser.fundraiser ? 
+                        {this.props.selectedFundraiser && this.props.selectedFundraiser.fundraiser ? 
                             <Popup 
-                                latitude={this.state.selectedFundraiser.fundraiser.latitude} 
-                                longitude={this.state.selectedFundraiser.fundraiser.longitude}
+                                latitude={this.props.selectedFundraiser.fundraiser.latitude} 
+                                longitude={this.props.selectedFundraiser.fundraiser.longitude}
                                 >
 
-                                    <h4>{this.state.selectedFundraiser.fundraiser.name}</h4>
-                                    <div id="fundraiser-link"><a href={this.state.selectedFundraiser.fundraiser.url}>Link</a></div>
+                                    <h4>{this.props.selectedFundraiser.fundraiser.name}</h4>
+                                    <div id="fundraiser-link"><a href={this.props.selectedFundraiser.fundraiser.url}>Link</a></div>
 
                             </Popup>
                         : null}
