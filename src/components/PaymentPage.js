@@ -20,6 +20,11 @@ export default class PaymentPage extends Component {
         displayLoading: false
       }
     }
+
+    handleToggleModal = () => {
+      const modal = document.querySelector("#modal");
+      modal.classList.toggle("off");
+    }
   
     cardNonceResponseReceived = (errors, nonce, cardData, buyerVerificationToken) => {
       if (errors) {
@@ -149,7 +154,7 @@ export default class PaymentPage extends Component {
                         <select className="app-drop-down" id='ccof'>
                           {this.renderCCOF()}
                         </select>
-                        <button className="pay-credit-card-on-file" onClick={this.handleSavedCardClick}>Charge this card ${this.props.amountToCharge}</button>
+                        <button className="pay-credit-card-on-file" onClick={this.handleToggleModal}>Charge this card ${this.props.amountToCharge}</button>
                       </div>
                       <br/>
 
@@ -198,6 +203,16 @@ export default class PaymentPage extends Component {
                   <li key={`sq-error-${errorMessage}`}>{errorMessage}</li>
                 )}
               </div>
+
+              <div className="modal off" id="modal">
+                <h2>Charge this card ${this.props.amountToCharge}?</h2>
+                <div className="content">Please confirm this is the amount you meant.</div>
+                <div className="actions">
+                  <button onClick={this.handleSavedCardClick} className="toggle-button blue-buttons">Yes, charge me</button>
+                  <button onClick={this.handleToggleModal} className="toggle-button blue-buttons">No, take me back</button>
+                </div>
+              </div>
+
             </div>
           }
         </div>

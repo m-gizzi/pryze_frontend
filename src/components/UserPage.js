@@ -37,13 +37,13 @@ export default class UserPage extends Component {
         return this.state.games.map(game => {
             const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZone: `${timeZone}` }
             const gameDate = new Date(game.created_at).toLocaleDateString('en-US', DATE_OPTIONS)
-            return <a href={`/results/${game.square_payment_id}`} key={`game-${game.id}`}><li >{gameDate} - ${game.amount}</li></a>
+            return <a href={`/results/${game.square_payment_id}`} key={`game-${game.id}`}><li >{gameDate} - ${game.amount.toFixed(2)}</li></a>
         })
     }
 
     renderFundraiserScoreCard = () => {
         return this.state.fundraisers.map(fundraiser => {
-            return <a href={fundraiser.url} key={`fundraiser-${fundraiser.id}`}><li>{fundraiser.fundraiser_name} - ${fundraiser.donation_amount}</li></a>
+            return <a href={fundraiser.url} key={`fundraiser-${fundraiser.id}`}><li>{fundraiser.fundraiser_name} - ${fundraiser.donation_amount.toFixed(2)}</li></a>
         })
     }
 

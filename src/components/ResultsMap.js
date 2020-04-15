@@ -67,7 +67,7 @@ export default class ResultsMap extends Component {
             return <Marker key={`marker-${donationEntry.donation.id}`} 
                 latitude={donationEntry.fundraiser.latitude}
                 longitude={donationEntry.fundraiser.longitude}>
-                    <button className='marker-btn' onClick={() => this.props.handleClick(donationEntry)}><img src="/map-pushpin.svg" alt="Fundraiser Location"/></button>
+                    <button style={{transform: `translate(${-17}px,${-22}px)`}} className='marker-btn' onClick={() => this.props.handleClick(donationEntry)}><img src="/map-pushpin.svg" alt="Fundraiser Location"/></button>
             </Marker>
         })
     }
