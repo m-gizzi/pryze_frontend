@@ -57,6 +57,11 @@ export default class PaymentPage extends Component {
         if (game.game) {
           this.props.saveCurrentGame(game)
           this.props.history.push(`/results/${game.game.square_payment_id}`)
+        } else if (game.errors) {
+          this.setState({
+            errorMessages: game.errors.map(error => error.detail),
+            displayLoading: false
+          })
         }
       })
       .catch(error => console.log(error))
@@ -210,6 +215,17 @@ export default class PaymentPage extends Component {
                 <div className="actions">
                   <button onClick={this.handleSavedCardClick} className="toggle-button blue-buttons">Yes, charge me</button>
                   <button onClick={this.handleToggleModal} className="toggle-button blue-buttons">No, take me back</button>
+                </div>
+              </div>
+
+              <div className="modal sandbox" id="modal-sandbox">
+                <h2>Square Sandbox</h2>
+                <div className="content">There is only one credit card that works for this sandbox environment:<br/>
+                Card number: 4111 1111 1111 1111<br/>
+                Expiration: 12/21<br/>
+                Zipcode: 11111<br/>
+                CVV: 111</div>
+                <div className="actions">
                 </div>
               </div>
 
