@@ -26,7 +26,7 @@ class App extends Component {
         },
         body: JSON.stringify({token: token})
       }
-      fetch('https://pryze-backend.herokuapp.com/auth/autologin', reqObj)
+      fetch('http://localhost:3000/auth/autologin', reqObj)
       .then(resp => resp.json())
       .then(user => this.handleAutoLogin(user.user))
     }

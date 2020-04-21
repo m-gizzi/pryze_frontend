@@ -32,7 +32,7 @@ export default class LoginForm extends Component {
             },
             body: JSON.stringify(this.state.user)
           }
-        fetch('https://pryze-backend.herokuapp.com/auth/login', reqObj)
+        fetch('http://localhost:3000/auth/login', reqObj)
         .then(resp => {
             respStatus = resp.status
             return resp.json()

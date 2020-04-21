@@ -13,7 +13,7 @@ export default class ResultsPage extends Component {
     //  Removes an extra unnessecary fetch request if the user has followed normal flow
     componentDidMount = () => {
         if (!this.props.currentGame.game || this.props.currentGame.game.square_payment_id !== this.props.match.params.id) {
-            fetch(`https://pryze-backend.herokuapp.com/games/${this.props.match.params.id}`)
+            fetch(`http://localhost:3000/games/${this.props.match.params.id}`)
             .then(resp => resp.json())
             .then(game => {
                 this.props.saveCurrentGame(game)

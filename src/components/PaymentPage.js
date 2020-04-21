@@ -60,7 +60,7 @@ export default class PaymentPage extends Component {
     //  Send the fetch request to my own backend
     //  for handling my own database as well as Square's
     sendFetch = (reqObj) => {
-      fetch("https://pryze-backend.herokuapp.com/games", reqObj)
+      fetch("http://localhost:3000/games", reqObj)
       .then(resp => resp.json())
       .then(game => {
         if (game.game) {
