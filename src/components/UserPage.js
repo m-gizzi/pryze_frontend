@@ -14,7 +14,7 @@ export default class UserPage extends Component {
         if (this.props.currentUser && 
             this.props.currentUser.square_id === this.props.match.params.id &&
             this.state.games.length === 0) {
-            fetch(`http://localhost:3000/users/${this.props.currentUser.id}`)
+            fetch(`https://pryze-backend.herokuapp.com/users/${this.props.currentUser.id}`)
             .then(resp => resp.json())
             .then(userData => {
                 this.props.handleCurrentUser(userData.user)

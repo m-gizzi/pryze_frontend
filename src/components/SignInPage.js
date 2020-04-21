@@ -36,7 +36,7 @@ export default class SignInPage extends Component {
                 },
                 body: JSON.stringify(this.state)
             }
-            fetch('http://localhost:3000/users', reqObj)
+            fetch('https://pryze-backend.herokuapp.com/users', reqObj)
             .then(resp => {
                 respStatus = resp.status
                 return resp.json()
