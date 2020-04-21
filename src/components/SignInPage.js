@@ -47,7 +47,7 @@ export default class SignInPage extends Component {
                 })
                 if (respStatus === 201) {
                     this.props.handleCurrentUser(resp.user)
-                    localStorage.setItem("pryzeToken", resp.token)
+                    localStorage.setItem("pryzeToken", resp.token) // set JWT for future logins
                 } else if (respStatus === 406) {
                     Object.values(resp).forEach(error => {
                         this.setState({

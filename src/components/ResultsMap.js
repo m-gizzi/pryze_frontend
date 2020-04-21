@@ -22,6 +22,8 @@ export default class ResultsMap extends Component {
         }
     }
 
+    //  A slightly hacky bugfix for allowing mapbox markers to
+    //  include clickable links and still be able to close
     componentDidUpdate = () => {
         if (document.getElementsByClassName("mapboxgl-popup-close-button").length > 0) {
             const x = document.getElementsByClassName("mapboxgl-popup-close-button")[0]

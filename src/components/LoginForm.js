@@ -40,7 +40,7 @@ export default class LoginForm extends Component {
         .then(resp => {
             if (respStatus === 202) {
                 this.props.handleCurrentUser(resp.user)
-                localStorage.setItem("pryzeToken", resp.token)
+                localStorage.setItem("pryzeToken", resp.token) // set JWT for future logins
             } else if (respStatus === 401) {
                 this.setState({
                     error: [
