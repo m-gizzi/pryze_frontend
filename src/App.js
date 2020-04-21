@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import HomePage from './containers/HomePage';
 import ResultsPage from './containers/ResultsPage';
 import UserPage from './components/UserPage';
+import { URL } from './constants';
 
 class App extends Component {
   constructor() {
@@ -26,7 +27,7 @@ class App extends Component {
         },
         body: JSON.stringify({token: token})
       }
-      fetch('http://localhost:3000/auth/autologin', reqObj)
+      fetch(`${URL}auth/autologin`, reqObj)
       .then(resp => resp.json())
       .then(user => this.handleAutoLogin(user.user))
     }

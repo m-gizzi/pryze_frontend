@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { URL } from "../constants";
 
 export default class SignInPage extends Component {
     constructor() {
@@ -36,7 +37,7 @@ export default class SignInPage extends Component {
                 },
                 body: JSON.stringify(this.state)
             }
-            fetch('http://localhost:3000/users', reqObj)
+            fetch(`${URL}users`, reqObj)
             .then(resp => {
                 respStatus = resp.status
                 return resp.json()

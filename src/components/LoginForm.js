@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import { URL } from "../constants";
 
 export default class LoginForm extends Component {
     constructor() {
@@ -32,7 +33,7 @@ export default class LoginForm extends Component {
             },
             body: JSON.stringify(this.state.user)
           }
-        fetch('http://localhost:3000/auth/login', reqObj)
+        fetch(`${URL}auth/login`, reqObj)
         .then(resp => {
             respStatus = resp.status
             return resp.json()
@@ -66,6 +67,7 @@ export default class LoginForm extends Component {
     }
 
     render = () => {
+        console.log(URL)
         if (this.props.currentUser) {
             return <Redirect to='/' />
         } else {

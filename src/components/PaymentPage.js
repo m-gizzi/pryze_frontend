@@ -8,6 +8,7 @@ import {
     CreditCardSubmitButton
   } from 'react-square-payment-form'
 import 'react-square-payment-form/lib/default.css'
+import { URL } from '../constants'
 
 export default class PaymentPage extends Component {
 
@@ -60,7 +61,7 @@ export default class PaymentPage extends Component {
     //  Send the fetch request to my own backend
     //  for handling my own database as well as Square's
     sendFetch = (reqObj) => {
-      fetch("http://localhost:3000/games", reqObj)
+      fetch(`${URL}games`, reqObj)
       .then(resp => resp.json())
       .then(game => {
         if (game.game) {
