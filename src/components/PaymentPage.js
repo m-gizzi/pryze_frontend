@@ -25,7 +25,14 @@ export default class PaymentPage extends Component {
       const modal = document.querySelector("#modal");
       modal.classList.toggle("off");
     }
+
+    handleToggleModalTwo = () => {
+      const modalTwo = document.querySelector("#modal-sandbox");
+      modalTwo.classList.toggle("off");
+    }
   
+    //  Square defined callback for when the payment form submit button is clicked,
+    //  and the response from Square has reached the frontend
     cardNonceResponseReceived = (errors, nonce, cardData, buyerVerificationToken) => {
       if (errors) {
         this.setState({ errorMessages: errors.map(error => error.message) })
@@ -50,6 +57,8 @@ export default class PaymentPage extends Component {
       this.sendFetch(reqObj)
     }
 
+    //  Send the fetch request to my own backend
+    //  for handling my own database as well as Square's
     sendFetch = (reqObj) => {
       fetch("http://localhost:3000/games", reqObj)
       .then(resp => resp.json())
@@ -103,6 +112,8 @@ export default class PaymentPage extends Component {
       })
     }
 
+    //  Package the data needed for Square to handle payment
+    //  with saved card instead of entered in the form
     handleSavedCardClick = () => {
       this.setState({
         displayLoading: true
@@ -226,6 +237,7 @@ export default class PaymentPage extends Component {
                 Zipcode: 11111<br/>
                 CVV: 111</div>
                 <div className="actions">
+                <button onClick={this.handleToggleModalTwo} className="toggle-button blue-buttons">Got it!</button>
                 </div>
               </div>
 

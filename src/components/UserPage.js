@@ -10,7 +10,7 @@ export default class UserPage extends Component {
         }
     }
 
-    fetchAdditionalInfo = () => {
+    componentDidMount = () => {
         if (this.props.currentUser && 
             this.props.currentUser.square_id === this.props.match.params.id &&
             this.state.games.length === 0) {
@@ -52,7 +52,6 @@ export default class UserPage extends Component {
     }
 
     render = () => {
-        this.fetchAdditionalInfo()
         const { match, currentUser, handleLogOut, history } = this.props
         if (currentUser && currentUser.square_id === match.params.id) {
             return (

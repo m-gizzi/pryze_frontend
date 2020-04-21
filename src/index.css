@@ -584,13 +584,13 @@ a li:hover,
 }
 
 .modal.sandbox {
-	top: 30%;
-	left: -110%;
+	top: 70%;
+	left: -50%;
 	width: 400px;
 }
 
 /* -2rem 2rem 2rem rgba(black, 0.2) */
-.modal.off {
+.modal.off, .modal.sandbox.off {
 	  opacity: 0;
 	  visibility: hidden;
 	  filter: blur(8px);
@@ -599,17 +599,17 @@ a li:hover,
 }
 
 @supports (offset-rotate: 0deg) {
-	.modal {
+	.modal, .modal.sandbox {
 		offset-rotate: 0deg;
 		offset-path: path("M 250,100 S -300,500 -700,-200");
 	}
-	.modal.off {
+	.modal.off, .modal.sandbox.off {
 		offset-distance: 100%;
 	}
 }
 
 @media (prefers-reduced-motion) {
-	.modal {
+	.modal, .modal.sandbox {
 		offset-path: none;
 	}
 }
