@@ -87,7 +87,7 @@ class App extends Component {
         <div className="center-container">
           <h1 className="app-title">Pryze</h1>
           <p>{this.state.currentUser ? `Logged in as: ${this.state.currentUser.username}` :
-            "Continue as a guest, or login to conviently see your play history and save your payment options."}
+            "Continue as a guest, or login to conveniently see your play history and save your payment options."}
           </p>
           
           <Route exact path="/" render={routerProps => {
