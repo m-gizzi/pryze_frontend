@@ -1,6 +1,7 @@
 # README
 
 Quick links:
+
 Backend repo: https://github.com/m-gizzi/pryze_backend
 
 Demo: https://www.youtube.com/watch?v=GvI3tYqPXQQ
@@ -13,7 +14,7 @@ Pryze is an app designed to simplify and gamify the process of donating to fundr
 
 ### Prerequisites
 
-While this app can mostly be cloned as is (don't forget the frontend repo, linked above), it does assume you have an active Square developer's account.  You can get that started here: https://developer.squareup.com/us/en
+While this app can mostly be cloned as is (don't forget the backend repo, linked above), it does assume you have an active Square developer's account.  You can get that started here: https://developer.squareup.com/us/en
 
 Once you have an account you can create your app.  There are three tokens Square will give you:
 
@@ -23,7 +24,7 @@ Once you have an account you can create your app.  There are three tokens Square
 
 * Access Token
 
-The first two will need to be added to Square's Payment Form as props in the frontend (see PaymentPage.js in the other repo).  The second will need to be added to your backend (see the Users controller and Game model).
+The first two will need to be added to Square's Payment Form as props in the frontend (see PaymentPage.js).  The second will need to be added to your backend (see the Users controller and Game model).
 
 A number of fundraisers are currently included in the seeds file.  Add more by modifying that file.
 
