@@ -156,7 +156,7 @@ export default class PaymentPage extends Component {
             <div>
               <SquarePaymentForm
                 sandbox={true}
-                applicationId={'sandbox-sq0idb-gOudPwTBnxbEYKpxdTvKOw'}
+                applicationId={'sandbox-sq0idb-gOudPwTBnxbEYKpxdTvKOw'} //  Both of these need to come from your sandbox account
                 locationId={'3J44BEJN11JNZ'}
                 cardNonceResponseReceived={this.cardNonceResponseReceived}
                 createVerificationDetails={this.createVerificationDetails}
