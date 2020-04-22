@@ -1,68 +1,69 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# README
 
-## Available Scripts
+Quick links:
+Backend repo: https://github.com/m-gizzi/pryze_backend
 
-In the project directory, you can run:
+Demo: https://www.youtube.com/watch?v=GvI3tYqPXQQ
 
-### `yarn start`
+Live Site: https://pryze-83358.herokuapp.com/
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+__________________________________________
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Pryze is an app designed to simplify and gamify the process of donating to fundraisers, dreamed up during the coronavirus pandemic during spring 2020.  There are thousands of possible fundraisers active to donate to, and assuming all are deserving, this app seeks to increase fairness and equitability in donations by randomizing the recipients.  Users can avoid the moral fatigue that comes with an overwhelming number of cries for help, and fundraisers don't have to worry about things like marketing which can create a certain amount of bias in the process of seeking funds.
 
-### `yarn test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+While this app can mostly be cloned as is (don't forget the frontend repo, linked above), it does assume you have an active Square developer's account.  You can get that started here: https://developer.squareup.com/us/en
 
-### `yarn build`
+Once you have an account you can create your app.  There are three tokens Square will give you:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Application ID
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+* Location ID
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Access Token
 
-### `yarn eject`
+The first two will need to be added to Square's Payment Form as props in the frontend (see PaymentPage.js in the other repo).  The second will need to be added to your backend (see the Users controller and Game model).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+A number of fundraisers are currently included in the seeds file.  Add more by modifying that file.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### The App
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The app itself is designed to be relatively simple.  Simply enter an amount to donate, and then pay either by using the credit card form or a saved payment method from the dropdown.  The app will then generate subdonations randomly based off of your donation, which you can interact with and see on the map.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+There are three methods of randomization going on here, each of which happens sequentially.
 
-## Learn More
+1. A random number of subdonation are created.  This uses the standard Ruby rand() method.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. A fundraiser is assigned to each subdonation.  To avoid assigning the same one more than once in the same game, this one uses this randomization:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+recipient_fundraisers = (1..total_fundraisers).to_a.shuffle.take(number_of_donations)
+```
 
-### Code Splitting
+Think of this as generating a deck of cards with every possible outcome, then shuffling and taking the top x many.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+3. An amount is assigned to each subdonation.  This one is a tad complicated, but here's the responsible code:
 
-### Analyzing the Bundle Size
+```
+amount_array = (2..(self.amount * 100 + number_of_donations - 1)).to_a.shuffle.take(number_of_donations - 1)
+    amount_array.sort!
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+    donations_array.each_with_index do |donation_hash, index|
 
-### Making a Progressive Web App
+      if number_of_donations == 1
+        amount = self.amount
+      elsif index == 0
+        amount = (amount_array[index] - 1).to_f / 100
+      elsif index == donations_array.length - 1
+        amount = (self.amount * 100 + number_of_donations - 1 - amount_array[index - 1]).to_f / 100
+      else
+        amount = (amount_array[index] - amount_array[index - 1] - 1).to_f / 100
+      end
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+      donation_hash[:amount] = amount
 
-### Advanced Configuration
+    end
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+I am generating an array of numbers from 2 to the total donation (plus some modification to make the probability work out).  I can then use the difference between these numbers to create the amounts, such that they add up to the total donation.  The if statement is handling cases where there is only one subdonation, the first subdonation is being created, the last one is being created, and all others in between.
