@@ -27,6 +27,24 @@ The first two will need to be added to Square's Payment Form as props in the fro
 
 A number of fundraisers are currently included in the seeds file.  Add more by modifying that file.
 
+### Built With
+* React
+* Ruby
+* Rails API utilizing Active Model Serializers
+* PostgreSQL Database using ActiveRecord
+* React Map GL
+* Square Payment Form
+
+### Server-Side Install Instructions
+1. Run ```bundle install```
+2. Run ```rake db:create```
+3. Run ```rake db:migrate```
+4. Run ```rake db:seed```
+5. Run ```rails s -p 3001```
+### Client-Side Install Instructions
+1. Run ```npm install```
+2. Run ```npm start```
+
 ### The App
 
 The app itself is designed to be relatively simple.  Simply enter an amount to donate, and then pay either by using the credit card form or a saved payment method from the dropdown.  The app will then generate subdonations randomly based off of your donation, which you can interact with and see on the map.
@@ -67,3 +85,7 @@ amount_array = (2..(self.amount * 100 + number_of_donations - 1)).to_a.shuffle.t
 ```
 
 I am generating an array of numbers from 2 to the total donation (plus some modification to make the probability work out).  I can then use the difference between these numbers to create the amounts, such that they add up to the total donation.  The if statement is handling cases where there is only one subdonation, the first subdonation is being created, the last one is being created, and all others in between.
+
+### Author
+
+Matthew Gizzi
