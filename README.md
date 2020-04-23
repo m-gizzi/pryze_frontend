@@ -41,7 +41,7 @@ A number of fundraisers are currently included in the seeds file.  Add more by m
 2. Run ```rake db:create```
 3. Run ```rake db:migrate```
 4. Run ```rake db:seed```
-5. Run ```rails s -p 3001```
+5. Run ```rails s```
 ### Client-Side Install Instructions
 1. Run ```npm install```
 2. Run ```npm start```
