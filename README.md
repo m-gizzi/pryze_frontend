@@ -44,7 +44,8 @@ A number of fundraisers are currently included in the seeds file.  Add more by m
 5. Run ```rails s```
 ### Client-Side Install Instructions
 1. Run ```npm install```
-2. Run ```npm start```
+2. Change the URL in src/constants/index.js to the port used in step 5 above
+3. Run ```npm start```
 
 ### The App
 
